@@ -1,0 +1,74 @@
+CREATE SCHEMA IF NOT EXISTS meta_data;
+CREATE SCHEMA IF NOT EXISTS user_data;
+USE meta_data;
+USE meta_data;
+
+CREATE TABLE IF NOT EXISTS salutations (
+    row_id INT AUTO_INCREMENT PRIMARY KEY,
+    salutation_code VARCHAR(10) UNIQUE NOT NULL,   -- Mr, Ms, Dr
+    description VARCHAR(100),                      -- Optional meaning
+    status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE IF NOT EXISTS countries (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  country_code VARCHAR(10) UNIQUE NOT NULL,
+  country_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE IF NOT EXISTS states (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  country_id INT NOT NULL,
+  state_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  FOREIGN KEY (country_id) REFERENCES countries(row_id)
+);
+
+CREATE TABLE IF NOT EXISTS cities (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  state_id INT NOT NULL,
+  city_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  FOREIGN KEY (state_id) REFERENCES states(row_id)
+);
+
+CREATE TABLE IF NOT EXISTS languages (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  language_name VARCHAR(100) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE IF NOT EXISTS skills (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  skill_name VARCHAR(100) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE IF NOT EXISTS areas_of_interest (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  interest_name VARCHAR(150) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE IF NOT EXISTS colleges (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  college_name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  course_name VARCHAR(100) NOT NULL,
+  stream VARCHAR(100),
+  UNIQUE(course_name, stream)
+);
+
+
+
+
+
+
+
+
+
+
